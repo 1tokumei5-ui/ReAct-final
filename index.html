@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#72B89A" />
+  <meta name="description" content="GreenPoint - แอปเก็บขยะแลกแต้มเพื่อโลกที่ดีขึ้น" />
+  <title>GreenPoint | เก็บขยะแลกแต้ม</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <!-- SPLASH -->
+  <section id="splashScreen" class="screen splash-screen">
+    <div class="splash-orb orb-1"></div>
+    <div class="splash-orb orb-2"></div>
+    <div class="splash-content">
+      <div class="brand-mark">
+        <span class="leaf leaf-a"></span>
+        <span class="leaf leaf-b"></span>
+        <span class="brand-dot"></span>
+      </div>
+      <h1>Green<span>Point</span></h1>
+      <p>เก็บขยะวันนี้ เปลี่ยนโลกพรุ่งนี้</p>
+      <div class="loader"><span></span></div>
+    </div>
+  </section>
+
+  <!-- AUTH -->
+  <section id="authScreen" class="screen auth-screen hidden">
+    <div class="auth-shell">
+      <div class="auth-brand">
+        <div class="small-mark"><span class="leaf leaf-a"></span><span class="leaf leaf-b"></span></div>
+        <h2>GreenPoint</h2>
+        <p>ขยะมีค่า เมื่อเราแยกอย่างถูกวิธี</p>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-auth="login">เข้าสู่ระบบ</button>
+          <button class="auth-tab" data-auth="register">สมัครสมาชิก</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <label>อีเมล
+            <input id="loginEmail" type="email" placeholder="you@example.com" required>
+          </label>
+          <label>รหัสผ่าน
+            <div class="password-field">
+              <input id="loginPassword" type="password" placeholder="••••••••" required minlength="4">
+              <button type="button" class="eye-btn" data-password="loginPassword">◉</button>
+            </div>
+          </label>
+          <div class="form-row">
+            <label class="checkbox-label"><input type="checkbox"> จดจำฉัน</label>
+            <button type="button" class="text-btn" id="forgotBtn">ลืมรหัสผ่าน?</button>
+          </div>
+          <button class="primary-btn full" type="submit">เข้าสู่ระบบ <span>→</span></button>
+          <div class="divider"><span>หรือ</span></div>
+          <button type="button" class="social-btn" id="demoLogin">ทดลองใช้งานตัวอย่าง</button>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <label>ชื่อ-นามสกุล
+            <input id="registerName" type="text" placeholder="เช่น น้องกรีน" required>
+          </label>
+          <label>อีเมล
+            <input id="registerEmail" type="email" placeholder="you@example.com" required>
+          </label>
+          <label>รหัสผ่าน
+            <div class="password-field">
+              <input id="registerPassword" type="password" placeholder="อย่างน้อย 4 ตัวอักษร" required minlength="4">
+              <button type="button" class="eye-btn" data-password="registerPassword">◉</button>
+            </div>
+          </label>
+          <label>ยืนยันรหัสผ่าน
+            <input id="registerConfirm" type="password" placeholder="กรอกรหัสผ่านอีกครั้ง" required minlength="4">
+          </label>
+          <label class="checkbox-label"><input id="acceptTerms" type="checkbox" required> ฉันยอมรับข้อกำหนดการใช้งาน</label>
+          <button class="primary-btn full" type="submit">สร้างบัญชี <span>→</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="appScreen" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="small-mark"><span class="leaf leaf-a"></span><span class="leaf leaf-b"></span></div>
+        <div><strong>GreenPoint</strong><small>Eco Reward</small></div>
+      </div>
+
+      <nav class="side-nav">
+        <button data-page="home" class="side-item active"><span>⌂</span> หน้าหลัก</button>
+        <button data-page="points" class="side-item"><span>✦</span> แต้มของฉัน</button>
+        <button data-page="redeem" class="side-item"><span>♙</span> แลกของรางวัล</button>
+        <button data-page="history" class="side-item"><span>↺</span> ประวัติ</button>
+        <button data-page="notifications" class="side-item"><span>♢</span> แจ้งเตือน <b id="sideNotifCount">2</b></button>
+        <button data-page="profile" class="side-item"><span>◉</span> โปรไฟล์</button>
+        <button data-page="settings" class="side-item"><span>⚙</span> ตั้งค่า</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="eco-tip">
+          <div class="tip-icon">🌱</div>
+          <div>
+            <strong>ภารกิจวันนี้</strong>
+            <p>แยกขวด PET 3 ขวด</p>
+          </div>
+        </div>
+        <button id="logoutBtn" class="logout-btn">ออกจากระบบ</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button id="mobileMenu" class="icon-btn">☰</button>
+        <div class="topbar-search">
+          <span>⌕</span>
+          <input id="globalSearch" placeholder="ค้นหาของรางวัล หรือกิจกรรม...">
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" data-page="notifications">♢<em id="notifDot"></em></button>
+          <button class="avatar-btn" data-page="profile"><span id="headerAvatar">GP</span></button>
+        </div>
+      </header>
+
+      <div id="pageContainer">
+        <!-- HOME -->
+        <section id="page-home" class="page active">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">สวัสดี 👋</p>
+              <h1 id="homeGreeting">น้องกรีน</h1>
+              <p class="muted">พร้อมเปลี่ยนขยะให้กลายเป็นรางวัลหรือยัง?</p>
+            </div>
+            <button class="primary-btn" data-page="redeem">แลกของรางวัล <span>→</span></button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card point-card">
+              <div class="stat-icon">✦</div>
+              <div><span>แต้มสะสม</span><strong id="homePoints">1,850</strong><small>+120 แต้มสัปดาห์นี้</small></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">♻</div>
+              <div><span>ขยะที่เก็บได้</span><strong id="homeWeight">12.4 kg</strong><small>ช่วยลด CO₂ 8.7 kg</small></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏆</div>
+              <div><span>ระดับสมาชิก</span><strong id="homeLevel">Eco Hero</strong><small>อีก 150 แต้มถึง Green Star</small></div>
+            </div>
+          </div>
+
+          <div class="home-grid">
+            <div class="panel progress-panel">
+              <div class="panel-head">
+                <div><h3>เป้าหมายเดือนนี้</h3><span class="pill">กันยายน</span></div>
+                <strong id="monthGoalText">74%</strong>
+              </div>
+              <div class="progress"><span id="monthProgress" style="width:74%"></span></div>
+              <div class="goal-row"><span>เก็บขยะ 20 kg</span><b id="goalWeight">14.8 / 20 kg</b></div>
+              <div class="mini-achievements">
+                <div><span>🌿</span><strong>รักษ์โลก</strong><small>ลดพลาสติก</small></div>
+                <div><span>🚲</span><strong>เดินทางเขียว</strong><small>ใช้ขนส่งสาธารณะ</small></div>
+                <div><span>💧</span><strong>ลดใช้แล้วทิ้ง</strong><small>รีฟิลน้ำ</small></div>
+              </div>
+            </div>
+
+            <div class="panel checkin-panel">
+              <div class="panel-head">
+                <div><h3>เช็กอินวันนี้</h3><p>รับแต้มพิเศษทุกวัน</p></div>
+                <span class="check-badge">+10</span>
+              </div>
+              <div class="checkin-calendar" id="checkinCalendar"></div>
+              <button id="checkinBtn" class="primary-btn full">เช็กอินรับ 10 แต้ม</button>
+            </div>
+          </div>
+
+          <div class="section-title"><h2>ภารกิจแนะนำ</h2><button class="text-btn" data-page="points">ดูทั้งหมด →</button></div>
+          <div class="mission-grid" id="missionGrid"></div>
+
+          <div class="section-title"><h2>ของรางวัลยอดนิยม</h2><button class="text-btn" data-page="redeem">ดูทั้งหมด →</button></div>
+          <div class="reward-grid" id="homeRewards"></div>
+        </section>
+
+        <!-- POINTS -->
+        <section id="page-points" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">MY REWARDS</p><h1>แต้มของฉัน</h1><p class="muted">ทุกขวด ทุกกระป๋อง มีค่า</p></div>
+            <button class="soft-btn" id="scanBtn">▣ สแกน QR รับแต้ม</button>
+          </div>
+
+          <div class="points-hero">
+            <div><span>แต้มทั้งหมด</span><strong id="pointsBalance">1,850</strong><small>แต้ม</small></div>
+            <div class="points-level">
+              <span>Eco Hero</span>
+              <b>1,850 / 2,000</b>
+              <div class="progress"><span style="width:92.5%"></span></div>
+              <small>อีก 150 แต้ม สู่ Green Star</small>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="panel">
+              <div class="panel-head"><div><h3>วิธีรับแต้ม</h3><p>เลือกกิจกรรมที่คุณทำได้วันนี้</p></div></div>
+              <div class="earn-list" id="earnList"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><div><h3>สรุปแต้มรายเดือน</h3><p>กิจกรรมสะสมแต้มของคุณ</p></div></div>
+              <div class="bar-chart" id="barChart"></div>
+              <div class="chart-labels"><span>พ.ค.</span><span>มิ.ย.</span><span>ก.ค.</span><span>ส.ค.</span><span>ก.ย.</span></div>
+            </div>
+          </div>
+
+          <div class="section-title"><h2>ภารกิจทั้งหมด</h2><span class="muted">แตะเพื่อรับแต้ม</span></div>
+          <div class="mission-grid" id="allMissions"></div>
+        </section>
+
+        <!-- REDEEM -->
+        <section id="page-redeem" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">REWARD SHOP</p><h1>แลกของรางวัล</h1><p class="muted">ใช้แต้มที่มี แลกสิ่งที่คุณชอบ</p></div>
+            <div class="balance-chip">✦ <b id="redeemBalance">1,850</b> แต้ม</div>
+          </div>
+
+          <div class="category-row" id="categoryRow">
+            <button class="category-btn active" data-category="ทั้งหมด">ทั้งหมด</button>
+            <button class="category-btn" data-category="แก้วและขวด">แก้วและขวด</button>
+            <button class="category-btn" data-category="ถุงผ้า">ถุงผ้า</button>
+            <button class="category-btn" data-category="คูปอง">คูปอง</button>
+            <button class="category-btn" data-category="ต้นไม้">ต้นไม้</button>
+          </div>
+          <div class="reward-grid large" id="rewardGrid"></div>
+        </section>
+
+        <!-- HISTORY -->
+        <section id="page-history" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">ACTIVITY</p><h1>ประวัติของฉัน</h1><p class="muted">ดูการเคลื่อนไหวทั้งหมด</p></div>
+            <select id="historyFilter" class="select-input"><option value="all">ทั้งหมด</option><option value="earn">ได้รับแต้ม</option><option value="spend">ใช้แต้ม</option></select>
+          </div>
+          <div class="history-summary">
+            <div><span>รับแต้มทั้งหมด</span><strong id="totalEarn">2,430</strong></div>
+            <div><span>ใช้แต้มทั้งหมด</span><strong id="totalSpend">580</strong></div>
+            <div><span>กิจกรรม</span><strong id="totalActivities">17</strong></div>
+          </div>
+          <div class="panel table-panel">
+            <div class="history-list" id="historyList"></div>
+          </div>
+        </section>
+
+        <!-- NOTIFICATIONS -->
+        <section id="page-notifications" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">UPDATES</p><h1>แจ้งเตือน</h1><p class="muted">ข่าวสารและสิทธิประโยชน์ของคุณ</p></div>
+            <button class="soft-btn" id="markAllRead">ทำเครื่องหมายอ่านทั้งหมด</button>
+          </div>
+          <div class="notification-list" id="notificationList"></div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="page-profile" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">ACCOUNT</p><h1>โปรไฟล์</h1><p class="muted">จัดการข้อมูลส่วนตัวของคุณ</p></div>
+          </div>
+          <div class="profile-grid">
+            <div class="panel profile-card">
+              <div class="profile-cover"></div>
+              <div class="profile-avatar" id="profileAvatar">NG</div>
+              <h2 id="profileName">น้องกรีน</h2>
+              <p id="profileEmail">green@example.com</p>
+              <div class="profile-level">✦ Eco Hero</div>
+              <div class="profile-stats"><div><strong id="profilePoints">1,850</strong><span>แต้ม</span></div><div><strong>12.4</strong><span>kg</span></div><div><strong>17</strong><span>กิจกรรม</span></div></div>
+            </div>
+            <div class="panel edit-card">
+              <h3>ข้อมูลส่วนตัว</h3>
+              <form id="profileForm">
+                <label>ชื่อแสดงผล<input id="editName" required></label>
+                <label>อีเมล<input id="editEmail" type="email" required></label>
+                <label>เบอร์โทรศัพท์<input id="editPhone" placeholder="08x-xxx-xxxx"></label>
+                <label>พื้นที่หลัก<input id="editArea" placeholder="เช่น หาดใหญ่"></label>
+                <button class="primary-btn" type="submit">บันทึกการเปลี่ยนแปลง</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="page-settings" class="page">
+          <div class="page-heading">
+            <div><p class="eyebrow">PREFERENCES</p><h1>ตั้งค่า</h1><p class="muted">ปรับแต่งแอปให้เหมาะกับคุณ</p></div>
+          </div>
+          <div class="settings-layout">
+            <div class="panel settings-list">
+              <h3>ทั่วไป</h3>
+              <div class="setting-item"><div><strong>แจ้งเตือนภารกิจ</strong><span>รับแจ้งเตือนเมื่อมีภารกิจใหม่</span></div><label class="switch"><input id="toggleMission" type="checkbox" checked><span></span></label></div>
+              <div class="setting-item"><div><strong>แจ้งเตือนของรางวัล</strong><span>แจ้งเตือนเมื่อมีของรางวัลใหม่</span></div><label class="switch"><input id="toggleReward" type="checkbox" checked><span></span></label></div>
+              <div class="setting-item"><div><strong>โหมดประหยัดข้อมูล</strong><span>ลดการโหลดภาพและเอฟเฟกต์</span></div><label class="switch"><input id="toggleData"><span></span></label></div>
+            </div>
+            <div class="panel settings-list">
+              <h3>ความเป็นส่วนตัว</h3>
+              <div class="setting-item clickable" id="privacyBtn"><div><strong>นโยบายความเป็นส่วนตัว</strong><span>ดูวิธีที่เราจัดการข้อมูลของคุณ</span></div><span>›</span></div>
+              <div class="setting-item clickable" id="termsBtn"><div><strong>ข้อกำหนดการใช้งาน</strong><span>กติกาการใช้งาน GreenPoint</span></div><span>›</span></div>
+              <div class="setting-item clickable danger" id="clearDataBtn"><div><strong>ล้างข้อมูลทดลอง</strong><span>ลบข้อมูล localStorage และเริ่มต้นใหม่</span></div><span>›</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <button data-page="home" class="active"><span>⌂</span><small>หน้าแรก</small></button>
+      <button data-page="points"><span>✦</span><small>แต้ม</small></button>
+      <button data-page="redeem"><span>♙</span><small>แลกของ</small></button>
+      <button data-page="history"><span>↺</span><small>ประวัติ</small></button>
+      <button data-page="profile"><span>◉</span><small>โปรไฟล์</small></button>
+    </nav>
+  </section>
+
+  <!-- MODAL -->
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div id="modal" class="modal">
+      <button id="closeModal" class="modal-close">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
